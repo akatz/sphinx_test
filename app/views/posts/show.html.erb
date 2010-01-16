@@ -1,0 +1,16 @@
+<% title "Posts" %>
+
+<p>
+  <strong>Title:</strong>
+  <%=h @posts.title %>
+</p>
+<p>
+  <strong>Body:</strong>
+  <%=h @posts.body %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_post_path(@posts) %> |
+  <%= link_to "Destroy", @posts, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", posts_path %>
+</p>
