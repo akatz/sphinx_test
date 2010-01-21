@@ -4,7 +4,7 @@
 #end 
 
 require 'pp'
-pp node
+Chef::Log.info(configuration[:node].pretty_inspect)
 
 run <<-END
   if [ -f '#{shared_path}/system/maintenance.html' ] ; then
