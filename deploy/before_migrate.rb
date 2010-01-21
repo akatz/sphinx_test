@@ -3,7 +3,9 @@ require 'erb'
 unless File.exists?("#{shared_path}/system/maintenance.html.tmp")
   template = File.read(File.join(release_path, "deploy", "templates", "maintenance.rhtml")) 
   result = ERB.new(template).result(binding) 
-  put result, "#{shared_path}/system/maintenance.html.tmp", :mode => 0644
+  File.open("#{shared_path}/system/maintenance.html.tmp", 'w', 0644) {|f|
+    f.puts result
+  }
 end
 
 run <<-END
