@@ -1,17 +1,17 @@
+appname = 'sphinxtest' #replace with your app's name
 node = configuration[:node]
-domain = 'sphinxtest.example.com'
 
 if node['instance_role'] == 'app'
-  while (`curl -H "Host: #{domain}" #{node[:master_app_server][:private_dns_name]} -I 2>/dev/null| head -1 | awk '{print $2}'`.to_i == 503 )
+  while (`curl -H "Host: #{node[:applications][appname][:vhosts][0][:name]}" #{node[:master_app_server][:private_dns_name]} -I 2>/dev/null| head -1 | awk '{print $2}'`.to_i == 503 )
+
+    Chef::Log.info(
+      "Testing: curl -H \"Host: #{node[:applications][appname][:vhosts][0][:name]}\" #{node[:master_app_server][:private_dns_name]} -I 2>/dev/null| head -1 | awk '{print $2}'"
+    )
     sleep 5
   end
 else
   sleep 60
 end 
-
-require 'pp'
-Chef::Log.info(configuration[:node].pretty_inspect)
-
 run <<-END
   if [ -f '#{shared_path}/system/maintenance.html' ] ; then
     rm #{shared_path}/system/maintenance.html
