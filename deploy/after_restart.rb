@@ -5,6 +5,8 @@ if node['instance_role'] == 'app'
   while (`curl -H "Host: #{domain}" #{node[:master_app_server][:private_dns_name]} -I 2>/dev/null| head -1 | awk '{print $2}'`.to_i == 503 )
     sleep 5
   end
+else
+  sleep 60
 end 
 
 require 'pp'
