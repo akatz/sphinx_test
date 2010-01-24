@@ -1,8 +1,8 @@
 require 'erb'
 
 appname = shared_path.split('/')[2]
-Chef::Log.info("djbelfoofoofoo - App name: #{appname}");
 node = configuration[:node]
+Chef::Log.info("foofoofoo - run-migrations: #{node[:applications][appname][:run_migrations].to_s}");
 if node[:applications][appname][:run_migrations]
   unless File.exists?("#{shared_path}/system/maintenance.html.tmp")
     template = File.read(File.join(release_path, "deploy", "templates", "maintenance.rhtml")) 
@@ -11,6 +11,8 @@ if node[:applications][appname][:run_migrations]
       f.puts result
     }
   end
+
+  Chef::Log.info("Got here...")
 
   run <<-END
     if [ -f '#{shared_path}/system/maintenance.html.custom' ] ; then
