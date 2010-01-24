@@ -10,7 +10,7 @@ if node['instance_role'] == 'app'
     sleep 5
   end
 else
-  sleep 60
+  sleep 20
 end 
 run <<-END
   if [ -f '#{shared_path}/system/maintenance.html' ] ; then
