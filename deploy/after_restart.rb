@@ -1,6 +1,5 @@
-appname = 'sphinxtest' #replace with your app's name
-
 # Sleep while the master's maintenance page is present
+appname = shared_path.split('/')[2]
 node = configuration[:node]
 cmd = "curl -H \"Host: #{node[:applications][appname][:vhosts][0][:name]}\" #{node[:master_app_server][:private_dns_name]} -I 2>/dev/null| head -1 | awk '{print $2}'"
 if node['instance_role'] == 'app'
