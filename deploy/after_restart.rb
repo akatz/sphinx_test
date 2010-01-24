@@ -1,3 +1,6 @@
+# require 'pp'
+# Chef::Log.info(node.pretty_inspect)
+
 # Sleep while the master's maintenance page is present
 appname = shared_path.split('/')[2]
 node = configuration[:node]
@@ -8,17 +11,13 @@ if node['instance_role'] == 'app'
     sleep 5
     Chef::Log.info(cmd)
   end
-else
-  sleep 20
 end 
 
-require 'pp'
-Chef::Log.info(node.pretty_inspect)
-
 # Remove maintenance page if it exists.
+Chef::Log.info("Removing maintenance page (if it exists)")
 run <<-END
   if [ -f '#{shared_path}/system/maintenance.html' ] ; then
-    rm #{shared_path}/system/maintenance.html
+    mv -f #{shared_path}/system/maintenance.html #{shared_path}/system/maintenance.html.last
   fi
 END
 
