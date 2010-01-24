@@ -7,6 +7,8 @@ if node['instance_role'] == 'app'
     Chef::Log.info(cmd)
     sleep 5
   end
+else
+  sleep 20
 end 
 
 require 'pp'

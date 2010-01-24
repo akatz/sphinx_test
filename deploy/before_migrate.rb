@@ -1,6 +1,7 @@
 require 'erb'
 
 appname = shared_path.split('/')[2]
+Chef::Log.info("djbelfoofoofoo - App name: #{appname}");
 node = configuration[:node]
 if node[:applications][appname][:run_migrations]
   unless File.exists?("#{shared_path}/system/maintenance.html.tmp")
