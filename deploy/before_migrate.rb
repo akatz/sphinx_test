@@ -1,7 +1,5 @@
 require 'erb'
 
-run "cd #{release_path} && RAILS_ENV=production rake asset:packager:build_all"
-
 appname = shared_path.split('/')[2]
 node = configuration[:node]
 Chef::Log.info("Run Migrations: #{node[:applications][appname][:run_migrations].to_s}");
