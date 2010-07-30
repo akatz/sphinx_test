@@ -39,7 +39,9 @@ if ['solo', 'app', 'app_master', 'util'].include?(node[:instance_role])
         source "sphinx.yml.erb"
       end
 
-
+      execute "update sphinx.yml for #{app.name}" do
+        command "cd /;ln -sfv /data/#{app.name}/shared/config/sphinx.yml /data/#{app.name}/current/config/sphinx.yml"
+      end
 
       directory "/var/run/sphinx" do
         owner node[:owner_name]
@@ -98,16 +100,30 @@ if ['solo', 'app', 'app_master', 'util'].include?(node[:instance_role])
     #   execute "chown_sphinx" do
     #   # command "chown #{node[:owner_name]}:#{node[:owner_name]} -R /data/sphinx"
     # end
+      execute "log rake taks" do
+        command "rake -T >> /tmp/rake_tasks.out"
+        cwd "/data/#{app.name}/current"
+      end
+      execute "sphinx config" do
+      
+        command "rake #{flavor}:configure"
+        user node[:owner_name]
+        environment({
+          'HOME' => "/home/#{node[:owner_name]}",
+          'RAILS_ENV' => node[:environment][:framework_env]
+        })
+        cwd "/data/#{app.name}/current"
+      end
 
-      # execute "#{flavor} index" do
-      #   command "rake #{flavor}:index"
-      #   user node[:owner_name]
-      #   environment({
-      #     'HOME' => "/home/#{node[:owner_name]}",
-      #     'RAILS_ENV' => node[:environment][:framework_env]
-      #   })
-      #   cwd "/data/#{app.name}/current"
-      # end
+      execute "#{flavor} index" do
+        command "rake #{flavor}:index"
+        user node[:owner_name]
+        environment({
+          'HOME' => "/home/#{node[:owner_name]}",
+          'RAILS_ENV' => node[:environment][:framework_env]
+        })
+        cwd "/data/#{app.name}/current"
+      end
 
       execute "monit reload" do
       action :run
