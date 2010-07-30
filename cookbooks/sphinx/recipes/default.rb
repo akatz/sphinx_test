@@ -35,7 +35,7 @@ if ['solo', 'app', 'app_master', 'util'].include?(node[:instance_role])
         owner node[:owner_name]
         group node[:owner_name]
         mode 0644
-        variables({:sphinx_ip => sphinx_instance.public_hostname})
+        variables({:sphinx_ip => node[:hostname] })
         source "sphinx.yml.erb"
       end
 
