@@ -2,7 +2,7 @@
   searchd_log_file: /var/log/engineyard/sphinx/<%= @app_name %>/searchd.log
   query_log_file: /var/log/engineyard/sphinx/<%= @app_name %>/query.log
   pid_file: /var/run/sphinx/<%= @app_name %>.pid
-  address: <%= :sphinx_ip  %>
+  address: <%= @sphinx_ip  %>
   port: 3312
   mem_limit: <%= @mem_limit %>
   config_file: /data/<%= @app_name %>/current/config/<%= @flavor %>/<%= @node[:environment][:framework_env] %>.sphinx.conf
