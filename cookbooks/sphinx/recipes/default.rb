@@ -28,14 +28,14 @@ if ['solo', 'app', 'app_master', 'util'].include?(node[:instance_role])
 
   if node.engineyard == sphinx_instance
     Chef::Log.info "Util server is #{sphinx_instance.id}"
-
+    Chef::Log.info "Hostname is #{node[:hostname]} from node[:hostname] and #{sphinx_instance.public_hostname} from sphinx_instance"
     node.engineyard.apps.each do |app|
 
       template "/data/#{app.name}/shared/config/sphinx.yml" do
         owner node[:owner_name]
         group node[:owner_name]
         mode 0644
-        variables({:sphinx_ip => node[:hostname] })
+        variables({:sphinx_ip => sphinx_instance.public_hostname})
         source "sphinx.yml.erb"
       end
 
@@ -144,7 +144,6 @@ if ['solo', 'app', 'app_master', 'util'].include?(node[:instance_role])
     end
   else
     node.engineyard.apps.each do |app|
-  
       template "/data/#{app.name}/shared/config/sphinx.yml" do
         owner node[:owner_name]
         group node[:owner_name]
