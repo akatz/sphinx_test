@@ -115,15 +115,15 @@ if ['solo', 'app', 'app_master', 'util'].include?(node[:instance_role])
         cwd "/data/#{app.name}/current"
       end
 
-      execute "#{flavor} index" do
-        command "rake #{flavor}:index"
-        user node[:owner_name]
-        environment({
-          'HOME' => "/home/#{node[:owner_name]}",
-          'RAILS_ENV' => node[:environment][:framework_env]
-        })
-        cwd "/data/#{app.name}/current"
-      end
+      # execute "#{flavor} index" do
+      #   command "rake #{flavor}:index"
+      #   user node[:owner_name]
+      #   environment({
+      #     'HOME' => "/home/#{node[:owner_name]}",
+      #     'RAILS_ENV' => node[:environment][:framework_env]
+      #   })
+      #   cwd "/data/#{app.name}/current"
+      # end
 
       execute "monit reload" do
       action :run
