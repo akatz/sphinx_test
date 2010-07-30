@@ -1,4 +1,8 @@
-== Sphinx Test
+== ThinkingTank  Test
 
-This is a very simple  app built to test varoius thinking sphinx setups. Deploy it and hit /posts to test if search is working.
+This is a very simple app built to test various thinking tank setups. 
+
+Edit the config/indextank.yml file to set your API KEY and index name.
+
+Deploy it and hit /posts to test if search is working correctly.
 

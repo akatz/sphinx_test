@@ -1,0 +1,4 @@
+development:
+    api_key: '<INSERT API KEY HERE>'
+    index_name: '<INSERT INDEX NAME HERE>'
+
