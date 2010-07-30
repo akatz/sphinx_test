@@ -19,7 +19,7 @@ flavor = "thinking_sphinx"
 # Uncommenting this line as-is will reindex once every 10 minutes.
  cron_interval = 10
 
-if ['solo', 'app', 'app_master'].include?(node[:instance_role])
+if ['solo', 'app', 'app_master', 'util'].include?(node[:instance_role])
   sphinx_instance = if node.engineyard.environment.solo_cluster?
     node.engineyard.environment.instances.first
   else
