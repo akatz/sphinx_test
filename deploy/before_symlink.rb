@@ -1,1 +1,1 @@
-Chef::Log.info("Run Before Symlink");
+# Chef::Log.info("Run Before Symlink");
